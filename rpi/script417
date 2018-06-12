@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Build ARM kernel 4.9.y for QEMU Raspberry Pi Emulation
+#
+#######################################################
+TOOLCHAIN=arm-none-eabi
+COMMIT=rpi-4.17.y
+
+if [ ! -f $COMMIT.tar.gz ]; then	
+	wget https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz -q --show-progress --continue
+fi
+
+# Extracting sources
+if [ ! -d linux-$COMMIT ]; then
+	tar xvf $COMMIT.tar.gz
+	patch -Np1 -i ../linux-arm-417.patch -d linux-$COMMIT
+fi
+
+cd linux-$COMMIT
+
+KERNEL_VERSION=$(make kernelversion)
+KERNEL_TARGET_FILE_NAME=qemu-kernel-$KERNEL_VERSION
+MODULES_INSTALL_PATH=qemu-kernel-$KERNEL_VERSION-modules
+echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
+
+# Config
+cp ../rpiconfig417 .config
+
+# Compiling
+#make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- xconfig
+make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- bzImage dtbs
+cat arch/arm/boot/zImage arch/arm/boot/dts/versatile-pb.dtb > ../build/$KERNEL_TARGET_FILE_NAME

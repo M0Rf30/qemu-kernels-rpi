@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Build latest stable ARM kernel for QEMU Raspberry Pi Emulation
+#
+#######################################################
+TOOLCHAIN=aarch64-linux-gnu
+COMMIT=4.17.1
+
+if [ ! -f $COMMIT.tar.gz ]; then
+	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz -q --show-progress --continue
+fi
+
+# Kernel Compilation
+if [ ! -d linux-$COMMIT ]; then
+        tar xvf linux-$COMMIT.tar.xz
+fi
+
+cd linux-$COMMIT
+
+KERNEL_VERSION=$(make kernelversion)
+KERNEL_TARGET_FILE_NAME=qemu-kernel-$KERNEL_VERSION-aarch64
+MODULES_INSTALL_PATH=qemu-kernel-$KERNEL_VERSION-modules
+echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
+
+# Config
+cp ../rpiconfig .config
+# Compiling
+#make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- xconfig
+make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- Image dtbs
+
+cp arch/arm64/boot/Image ../build/$KERNEL_TARGET_FILE_NAME
