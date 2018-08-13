@@ -1,0 +1,35 @@
+--- a/arch/arm/Kconfig	2018-02-21 12:26:44.000000000 +0100
++++ b/arch/arm/Kconfig	2018-02-22 12:45:43.120471505 +0100
+@@ -670,7 +670,7 @@
+ 	select ARCH_MULTI_V4_V5
+ 	select CPU_ARM926T if !(CPU_ARM946E || CPU_ARM1020 || \
+ 		CPU_ARM1020E || CPU_ARM1022 || CPU_ARM1026 || \
+-		CPU_XSCALE || CPU_XSC3 || CPU_MOHAWK || CPU_FEROCEON)
++		CPU_XSCALE || CPU_XSC3 || CPU_MOHAWK || CPU_FEROCEON || CPU_V6)
+ 
+ config ARCH_MULTI_V4_V5
+ 	bool
+
+--- a/arch/arm/mach-versatile/Kconfig	2018-02-21 12:26:44.000000000 +0100
++++ b/arch/arm/mach-versatile/Kconfig	2018-02-22 12:46:04.309471212 +0100
+@@ -7,7 +7,7 @@
+ 	select ARM_VIC
+ 	select CLKSRC_VERSATILE
+ 	select COMMON_CLK_VERSATILE
+-	select CPU_ARM926T
++	select CPU_V6
+ 	select ICST
+ 	select MFD_SYSCON
+ 	select PLAT_VERSATILE
+
+--- a/drivers/mmc/host/Kconfig	2018-08-10 10:02:49.000000000 +0200
++++ b/drivers/mmc/host/Kconfig	2018-08-13 09:57:28.823243581 +0200
+@@ -911,7 +911,7 @@
+ 
+ config MMC_BCM2835
+ 	tristate "Broadcom BCM2835 SDHOST MMC Controller support"
+-	depends on ARCH_BCM2835 || COMPILE_TEST
++	depends on ARCH_BCM2835 || COMPILE_TEST || ARCH_VERSATILE
+ 	help
+ 	  This selects the BCM2835 SDHOST MMC controller. If you have
+ 	  a BCM2835 platform with SD or MMC devices, say Y or M here.
