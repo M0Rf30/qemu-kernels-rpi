@@ -4,7 +4,7 @@
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
-COMMIT=rpi-4.18.y
+COMMIT=rpi-4.19.y
 
 if [ ! -f $COMMIT.tar.gz ]; then	
 	wget https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz -q --show-progress --continue

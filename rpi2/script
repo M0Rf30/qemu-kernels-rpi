@@ -4,7 +4,7 @@
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
-COMMIT=4.18
+COMMIT=4.19
 
 if [ ! -f $COMMIT.tar.gz ]; then
 	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz -q --show-progress --continue
@@ -26,7 +26,8 @@ echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
 cp ../rpiconfig .config
 # Compiling
 #make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- xconfig
-make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
+#make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
+make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- dtbs
 
 cp arch/arm/boot/zImage ../build/$KERNEL_TARGET_FILE_NAME
 
