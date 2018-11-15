@@ -28,4 +28,4 @@ cp ../rpiconfig .config
 #make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- xconfig
 make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- Image.gz dtbs
 
-#cp arch/arm64/boot/Image ../build/$KERNEL_TARGET_FILE_NAME
+cp arch/arm64/boot/Image.gz ../build/$KERNEL_TARGET_FILE_NAME
