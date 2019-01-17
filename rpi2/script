@@ -4,7 +4,7 @@
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
-COMMIT=4.19
+COMMIT=4.20.3
 
 if [ ! -f $COMMIT.tar.gz ]; then
 	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz -q --show-progress --continue
