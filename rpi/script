@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Build ARM kernel 4.9.y for QEMU Raspberry Pi Emulation
+# Build ARM kernel for QEMU Raspberry Pi 1 Emulation
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
@@ -24,6 +24,7 @@ MODULES_INSTALL_PATH=qemu-kernel-$KERNEL_VERSION-modules
 echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
 
 # Config
+make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- versatile_defconfig
 cp ../rpiconfig .config
 
 # Compiling

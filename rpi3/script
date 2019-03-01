@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Build latest stable ARM kernel for QEMU Raspberry Pi Emulation
+# Build latest stable ARM kernel for QEMU Raspberry Pi 3 Emulation
 #
 #######################################################
 TOOLCHAIN=aarch64-linux-gnu
-COMMIT=4.20.3
+COMMIT=4.20.13
 
 if [ ! -f $COMMIT.tar.gz ]; then
 	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz -q --show-progress --continue
@@ -23,7 +23,9 @@ MODULES_INSTALL_PATH=qemu-kernel-$KERNEL_VERSION-modules
 echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
 
 # Config
-cp ../rpiconfig .config
+make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- vexpress_defconfig
+cat ../rpiconfig >> .config
+
 # Compiling
 #make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- xconfig
 make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm64 CROSS_COMPILE=${TOOLCHAIN}- Image.gz dtbs
