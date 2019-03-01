@@ -24,6 +24,7 @@ KERNEL_TARGET_FILE_NAME=qemu-kernel-$KERNEL_VERSION-aarch64
 echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
 
 # Config
+cp arch/arm/configs/vexpress_defconfig arch/arm64/configs
 make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" vexpress_defconfig
 scripts/kconfig/merge_config.sh .config ../rpiconfig
 
