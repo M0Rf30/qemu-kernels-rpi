@@ -30,7 +30,7 @@ scripts/kconfig/merge_config.sh .config ../rpiconfig
 # Compiling
 #make CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- xconfig
 make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
-make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- dtbs
+#make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- dtbs
 
 cp arch/arm/boot/zImage ../build/$KERNEL_TARGET_FILE_NAME
 
