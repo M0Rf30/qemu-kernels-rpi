@@ -9,7 +9,7 @@ before_install:
     - 'sudo chown -R root:root qemu-kernels-rpi-arch-arm'
     - 'docker pull m0rf30/arch-arm-crosscompile'
 script:
-    - 'sudo docker run -u root -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
+    - 'sudo docker run -u root -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
 before_deploy:
     - 'cd /home/travis/qemu-kernels-rpi-arch-arm' 
     - 'git config --local user.name "M0Rf30"'
