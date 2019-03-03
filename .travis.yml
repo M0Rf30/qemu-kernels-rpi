@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-- "cd ${TRAVIS_BUILD_DIR}"
+- cd /home/travis
 - git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm 
 - docker pull m0rf30/arch-arm-crosscompile
 
 script:
-- docker run -v qemu-kernels-rpi-arch-arm:/home/user/ m0rf30/arch-arm-crosscompile:latest bash -c "cd /home/user; ./build_all.sh"
+- docker run -v /home/travis/qemu-kernels-rpi-arch-arm:/home/user/ m0rf30/arch-arm-crosscompile:latest bash -c "cd /home/user; ./build_all.sh"
 
