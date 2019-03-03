@@ -1,4 +1,6 @@
 ﻿language: bash
+cache: ccache
+
 services:
     - docker
 before_install:
