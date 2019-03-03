@@ -5,10 +5,10 @@
 #######################################################
 TOOLCHAIN=arm-none-eabi
 COMMIT=rpi-4.20.y
-export ARCH=arm 
+export ARCH=arm
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-if [ ! -f $COMMIT.tar.gz ]; then	
+if [ ! -f $COMMIT.tar.gz ]; then
 	wget https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz -q --show-progress --continue
 fi
 
@@ -29,6 +29,6 @@ make CC="ccache ${TOOLCHAIN}-gcc" versatile_defconfig
 scripts/kconfig/merge_config.sh .config ../rpiconfig
 
 # Compiling
-#make CC="ccache ${TOOLCHAIN}-gcc" xconfig
+make CC="ccache ${TOOLCHAIN}-gcc" xconfig
 make -j 4 -k CC="ccache ${TOOLCHAIN}-gcc" bzImage dtbs
 cat arch/arm/boot/zImage arch/arm/boot/dts/versatile-pb.dtb > ../build/$KERNEL_TARGET_FILE_NAME

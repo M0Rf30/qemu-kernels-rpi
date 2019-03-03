@@ -4,7 +4,9 @@
 #
 #######################################################
 TOOLCHAIN=aarch64-linux-gnu
-COMMIT=4.20.13
+COMMIT=$(wget --output-document - --quiet https://www.kernel.org/ | grep -A 1 "latest_link")
+COMMIT=${COMMIT##*.tar.xz\">}
+COMMIT=${COMMIT%</a>}
 export ARCH=arm64
 export CROSS_COMPILE=${TOOLCHAIN}-
 
@@ -14,7 +16,7 @@ fi
 
 # Kernel Compilation
 if [ ! -d linux-$COMMIT ]; then
-        tar xvf linux-$COMMIT.tar.xz
+	tar xvf linux-$COMMIT.tar.xz
 fi
 
 cd linux-$COMMIT

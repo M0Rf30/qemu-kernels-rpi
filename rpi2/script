@@ -4,8 +4,10 @@
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
-COMMIT=4.20.13
-export ARCH=arm 
+COMMIT=$(wget --output-document - --quiet https://www.kernel.org/ | grep -A 1 "latest_link")
+COMMIT=${COMMIT##*.tar.xz\">}
+COMMIT=${COMMIT%</a>}
+export ARCH=arm
 export CROSS_COMPILE=${TOOLCHAIN}-
 
 if [ ! -f $COMMIT.tar.gz ]; then
