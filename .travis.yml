@@ -9,5 +9,5 @@ before_install:
 - docker pull m0rf30/arch-arm-crosscompile
 
 script:
-- sudo docker run -v /home/travis/qemu-kernels-rpi-arch-arm:/home/user/ m0rf30/arch-arm-crosscompile:latest bash -c "cd /home/user; ./build_all.sh"
+- sudo docker run -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"
 
