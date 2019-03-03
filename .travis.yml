@@ -1,13 +1,20 @@
-language: bash
+﻿language: bash
 services:
-  - docker
-
+    - docker
 before_install:
-- cd /home/travis
-- git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm 
-- sudo chown -R root:root qemu-kernels-rpi-arch-arm
-- docker pull m0rf30/arch-arm-crosscompile
-
+    - 'cd /home/travis'
+    - 'git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm'
+    - 'sudo chown -R root:root qemu-kernels-rpi-arch-arm'
+    - 'docker pull m0rf30/arch-arm-crosscompile'
 script:
-- sudo docker run -u root -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"
-
+    - 'sudo docker run -u root -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
+deploy:
+    provider: release
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    file:
+        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi/build/qemu-*'
+        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi2/build/qemu-*'
+        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi3/build/qemu-*'
+    on:
+        branch: master
