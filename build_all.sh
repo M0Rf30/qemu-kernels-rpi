@@ -1,5 +1,4 @@
 #!/bin/bash
-cd $PWD
 cd rpi && ./script
 cd ..
 cd rpi2 && ./script
