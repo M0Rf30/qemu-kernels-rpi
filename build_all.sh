@@ -5,7 +5,7 @@ cd rpi && ./script
 echo "Building rpi2 kernel"
 cd ../rpi2 && ./script
 
-echo "Building rpi kernel"
+echo "Building rpi3 kernel"
 mv *.tar.xz ../rpi3
 cd ../rpi3 && ./script
 
