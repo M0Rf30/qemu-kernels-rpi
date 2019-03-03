@@ -1,11 +1,16 @@
 #!/bin/bash
+echo "Building rpi kernel"
 cd rpi && ./script
-cd ..
-cd rpi2 && ./script
-mv *.tar.xz ../rpi3
-cd rpi3 && ./script
-cd ..
 
+echo "Building rpi2 kernel"
+cd ../rpi2 && ./script
+
+echo "Building rpi kernel"
+mv *.tar.xz ../rpi3
+cd ../rpi3 && ./script
+
+echo "Cleaning"
+cd ..
 rm -rf rpi/linux-rpi*
 rm -rf rpi2/linux-*
 rm -rf rpi3/linux-*
