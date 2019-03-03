@@ -8,9 +8,7 @@ COMMIT=rpi-4.20.y
 export ARCH=arm 
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-if [ ! -f $COMMIT.tar.gz ]; then	
-	wget https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz -q --show-progress --continue
-fi
+curl -L -O "https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz"
 
 # Extracting sources
 if [ ! -d linux-$COMMIT ]; then

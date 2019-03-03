@@ -10,9 +10,7 @@ COMMIT=${COMMIT%</a>}
 export ARCH=arm
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-if [ ! -f $COMMIT.tar.gz ]; then
-	curl -L -O -C - "https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz"
-fi
+curl -L -O -C - "https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.xz"
 
 # Kernel Compilation
 if [ ! -d linux-$COMMIT ]; then
