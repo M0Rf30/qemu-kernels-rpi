@@ -9,7 +9,7 @@ export ARCH=arm
 export CROSS_COMPILE=${TOOLCHAIN}-
 
 if [ ! -f $COMMIT.tar.gz ]; then
-	wget -q --show-progress -c https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz
+	wget -q -c https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz
 fi
 
 # Extracting sources
