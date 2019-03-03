@@ -11,10 +11,10 @@ script:
     - 'sudo docker run -u root -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
 before_deploy:
     - 'cd /home/travis/qemu-kernels-rpi-arch-arm' 
-    - 'git config --local user.name "M0Rf30"'
-    - 'git config --local user.email "morf3089@gmail.com"'
+    - 'sudo git config --local user.name "M0Rf30"'
+    - 'sudo git config --local user.email "morf3089@gmail.com"'
     - 'export TRAVIS_TAG=${TRAVIS_TAG:-$(date +''%Y%m%d%H%M%S'')-$(git log --format=%h -1)}'
-    - 'git tag $TRAVIS_TAG'
+    - 'sudo git tag $TRAVIS_TAG'
 deploy:
     provider: release
     skip_cleanup: true
