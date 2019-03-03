@@ -8,10 +8,17 @@ before_install:
     - 'docker pull m0rf30/arch-arm-crosscompile'
 script:
     - 'sudo docker run -u root -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
+before_deploy:
+    - 'cd /home/travis/qemu-kernels-rpi-arch-arm' 
+    - 'git config --local user.name "M0Rf30"'
+    - 'git config --local user.email "morf3089@gmail.com"'
+    - 'export TRAVIS_TAG=${TRAVIS_TAG:-$(date +''%Y%m%d%H%M%S'')-$(git log --format=%h -1)}'
+    - 'git tag $TRAVIS_TAG'
 deploy:
     provider: release
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
+    file_glob: true
     file:
         - '/home/travis/qemu-kernels-rpi-arch-arm/rpi/build/qemu-*'
         - '/home/travis/qemu-kernels-rpi-arch-arm/rpi2/build/qemu-*'
