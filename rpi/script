@@ -12,7 +12,7 @@ curl -L -O "https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz"
 
 # Extracting sources
 if [ ! -d linux-$COMMIT ]; then
-	tar xvf $COMMIT.tar.gz
+	tar xf $COMMIT.tar.gz
 	patch -Np1 -i ../linux-arm.patch -d linux-$COMMIT
 fi
 

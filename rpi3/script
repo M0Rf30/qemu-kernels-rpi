@@ -14,7 +14,7 @@ curl -L -O -C - "https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$COMMIT.tar.
 
 # Kernel Compilation
 if [ ! -d linux-$COMMIT ]; then
-	tar xvf linux-$COMMIT.tar.xz
+	tar xf linux-$COMMIT.tar.xz
 fi
 
 cd linux-$COMMIT
