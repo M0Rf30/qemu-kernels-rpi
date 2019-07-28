@@ -13,8 +13,10 @@ before_deploy:
     - 'cd /home/travis/qemu-kernels-rpi-arch-arm' 
     - 'sudo git config --local user.name "M0Rf30"'
     - 'sudo git config --local user.email "morf3089@gmail.com"'
-    - 'export TRAVIS_TAG=${TRAVIS_TAG:-$(date +''%Y%m%d%H%M%S'')-$(git log --format=%h -1)}'
-    - 'sudo git tag $TRAVIS_TAG'
+    - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
+    - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+    - git push -q https://$TAGPERM@github.com/M0Rf30/qemu-kernels-rpi-arch-arm --tags
+    - ls -R
 deploy:
     provider: releases
     skip_cleanup: true
@@ -28,4 +30,7 @@ deploy:
     on:
         repo: https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
         branch: master
-        tags: true
+        all_branches: true
+branches:
+    except:
+        - /^*-v[0-9]/
