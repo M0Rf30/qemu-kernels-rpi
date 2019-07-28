@@ -19,13 +19,13 @@ deploy:
     provider: releases
     skip_cleanup: true
     api_key:
-	secure: $GH_TOKEN
+        secure: $GH_TOKEN
     file_glob: true
     file:
         - '/home/travis/qemu-kernels-rpi-arch-arm/rpi/build/qemu-*'
         - '/home/travis/qemu-kernels-rpi-arch-arm/rpi2/build/qemu-*'
         - '/home/travis/qemu-kernels-rpi-arch-arm/rpi3/build/qemu-*'
     on:
-	repo: https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
+        repo: https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
         branch: master
-	tags: true
+        tags: true
