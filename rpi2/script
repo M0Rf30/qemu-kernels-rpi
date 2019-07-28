@@ -4,9 +4,7 @@
 #
 #######################################################
 TOOLCHAIN=arm-none-eabi
-COMMIT=$(curl -L -s https://www.kernel.org/ | grep -A 1 "latest_link")
-COMMIT=${COMMIT##*.tar.xz\">}
-COMMIT=${COMMIT%</a>}
+COMMIT=$(curl -s https://www.kernel.org | grep -A1 latest_link | tail -n1 | egrep -o '>[^<]+' | egrep -o '[^>]+')
 export ARCH=arm
 export CROSS_COMPILE=${TOOLCHAIN}-
 

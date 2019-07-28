@@ -3,12 +3,13 @@
 # Build ARM kernel for QEMU Raspberry Pi 1 Emulation
 #
 #######################################################
+REMOTE=https://github.com/raspberrypi/linux
 TOOLCHAIN=arm-none-eabi
-COMMIT=rpi-4.20.y
+COMMIT=$(git remote show "$REMOTE" | grep "HEAD" | cut -f 2 -d : | tr -d '[:space:]')
 export ARCH=arm 
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-curl -L -O "https://github.com/raspberrypi/linux/archive/$COMMIT.tar.gz"
+curl -L -O "$REMOTE/archive/$COMMIT.tar.gz"
 
 # Extracting sources
 if [ ! -d linux-$COMMIT ]; then
