@@ -1,36 +1,29 @@
-﻿language: bash
+language: bash
 cache: ccache
 services:
     - docker
 before_install:
     - 'cd /home/travis'
     - 'git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm'
-    - 'sudo chown -R root:root qemu-kernels-rpi-arch-arm'
+    - 'chown -R root:root qemu-kernels-rpi-arch-arm'
     - 'docker pull m0rf30/arch-arm-crosscompile'
 script:
-    - 'sudo docker run -u root -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"'
+    - "docker run -u root -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt\nm0rf30/arch-arm-crosscompile:latest bash -c \"cd /mnt; ./build_all.sh\""
 before_deploy:
-    - 'cd /home/travis/qemu-kernels-rpi-arch-arm' 
-    - 'sudo git config --local user.name "M0Rf30"'
-    - 'sudo git config --local user.email "morf3089@gmail.com"'
-    - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
-    - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-    - git push -q https://$TAGPERM@github.com/M0Rf30/qemu-kernels-rpi-arch-arm --tags
-    - ls -R
+    - 'cd /home/travis/qemu-kernels-rpi-arch-arm'
+    - 'git config --local user.name "M0Rf30"'
+    - 'git config --local user.email "morf3089@gmail.com"'
+    - 'export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER'
+    - 'git tag "$GIT_TAG" -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"'
+    - 'git push -q https://$TAGPERM@github.com/M0Rf30/qemu-kernels-rpi-arch-arm --tags'
+    - 'ls -R'
 deploy:
     provider: releases
-    skip_cleanup: true
     api_key:
-        secure: $GH_TOKEN
-    file_glob: true
+        secure: Hr7iz9USVclts40w3GTfeBCLIHwCOt/QlXPRrBTkHUSJppo1NUg4HGeeRjbzLgdG1ikj6R7czfXS870/uuEK/uMY4geoxyjKb8U3evN6a1Fx3RilFztxGySu4wzR3Oa2o0lm2BvUuAvBtw59wJiUto8j+kMA4IKh8/7mFtEs/3b9nkB0iJVrWHgiG6uHHNtE8v1kO0cWhT/9gBEAYZa3E6BXu7fDkgKPtagu6Vo9ehvOvYuFuKTh7080Tm+tXAGu39EoqHD1RXEoK8PpN7+9ly66v0jp/U/MD1vuQH4XmgJHmj+XEod7P+pNgb7k6F7OI1d+LvOKpGux3PICx9JbRRBpxgAkPUqySQGfM88voCnFjayNIwTuITq5BcuxKTr9Hq3gWqJi3hiMsrWNq/t72mPtEWJ1yhj3CNf9ldmrne3TU+EYc/g1A5iuvtjt6ytDPXGgy8N0sS/nk11A/gDIZSMvxLTXu7709ubVXycZvr+7I4ABXR/Bc1/+g83djx8MQKHPxjYKlC9Lb3/LSCSQzuGLLi1vaHjhamcmznSuGxqZmruAE1upt/qKGPI8IrWID409mDvwptPiTo384orMK9PHURaiINa9scFEvAEzKWNGY+25C28S5NFhcj83FTc5FE3UYScWUHojXCQ/ayQ2p4So/DMlPANGPbif26cuR8c=
     file:
-        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi/build/qemu-*'
-        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi2/build/qemu-*'
-        - '/home/travis/qemu-kernels-rpi-arch-arm/rpi3/build/qemu-*'
+        - 'rpi/build/*'
+        - 'rpi2/build/*'
+        - 'rpi3/build/*'
     on:
-        repo: https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
-        branch: master
-        all_branches: true
-branches:
-    except:
-        - /^*-v[0-9]/
+        repo: M0Rf30/qemu-kernels-rpi-arch-arm
