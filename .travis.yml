@@ -3,19 +3,19 @@ cache: ccache
 services:
     - docker
 before_install:
-    - 'cd /home/travis'
-    - 'git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm'
-    - 'docker pull m0rf30/arch-arm-crosscompile'
+    - cd /home/travis
+    - git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
+    - docker pull m0rf30/arch-arm-crosscompile
 script:
-    - "docker run -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt\nm0rf30/arch-arm-crosscompile:latest bash -c \"cd /mnt; ./build_all.sh\""
+    - docker run -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt m0rf30/arch-arm-crosscompile:latest bash -c "cd /mnt; ./build_all.sh"
 before_deploy:
-    - 'cd /home/travis/qemu-kernels-rpi-arch-arm'
-    - 'git config --local user.name "M0Rf30"'
-    - 'git config --local user.email "morf3089@gmail.com"'
+    - cd /home/travis/qemu-kernels-rpi-arch-arm
+    - git config --local user.name "M0Rf30"
+    - git config --local user.email "morf3089@gmail.com"
     - 'export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER'
     - 'git tag "$GIT_TAG" -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"'
     - 'git push -q https://$TAGPERM@github.com/M0Rf30/qemu-kernels-rpi-arch-arm --tags'
-    - 'ls -R'
+    - ls -R
 deploy:
     provider: releases
     api_key:
