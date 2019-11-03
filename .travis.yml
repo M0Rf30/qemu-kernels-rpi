@@ -5,7 +5,6 @@ services:
 before_install:
     - 'cd /home/travis'
     - 'git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm'
-    - 'chown -R root:root qemu-kernels-rpi-arch-arm'
     - 'docker pull m0rf30/arch-arm-crosscompile'
 script:
     - "docker run -u root -v /home/travis/.ccache:/root/.ccache -v /home/travis/qemu-kernels-rpi-arch-arm:/mnt\nm0rf30/arch-arm-crosscompile:latest bash -c \"cd /mnt; ./build_all.sh\""
