@@ -8,7 +8,7 @@ COMMIT=$(curl -s https://www.kernel.org | grep -A1 latest_link | tail -n1 | egre
 export ARCH=arm64
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-curl -L -O -C - "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$COMMIT.tar.xz"
+curl -L -O -C - "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-$COMMIT.tar.xz" || exit 1
 
 # Kernel Compilation
 if [ ! -d linux-$COMMIT ]; then

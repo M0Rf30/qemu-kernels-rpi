@@ -9,7 +9,7 @@ COMMIT=$(git remote show "$REMOTE" | grep "HEAD" | cut -f 2 -d : | tr -d '[:spac
 export ARCH=arm 
 export CROSS_COMPILE=${TOOLCHAIN}-
 
-curl -L -O "$REMOTE/archive/$COMMIT.tar.gz"
+curl -L -O "$REMOTE/archive/$COMMIT.tar.gz" || exit 1
 
 # Extracting sources
 if [ ! -d linux-$COMMIT ]; then
