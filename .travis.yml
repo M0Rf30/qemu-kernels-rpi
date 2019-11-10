@@ -3,13 +3,10 @@ cache: ccache
 services:
     - docker
 before_install:
-    - cd /home/travis
-    - git clone https://github.com/M0Rf30/qemu-kernels-rpi-arch-arm
     - docker pull m0rf30/arch-arm-crosscompile
 script:
-    - docker run -u root -v /home/travis/.ccache:/root/.ccache -v /root/qemu-kernels-rpi-arch-arm:/home/user m0rf30/arch-arm-crosscompile:latest bash -c "cd /home/user; ./build_all.sh"
+    - docker run -u root -v $HOME/.ccache:/ccache -v $TRAVIS_BUILD_DIR:/workspace m0rf30/arch-arm-crosscompile:latest bash -c "cd /workspace; CCACHE_DIR=/ccache ./build_all.sh"
 before_deploy:
-    - cd /home/travis/qemu-kernels-rpi-arch-arm
     - git config --local user.name "M0Rf30"
     - git config --local user.email "morf3089@gmail.com"
     - 'export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER'
