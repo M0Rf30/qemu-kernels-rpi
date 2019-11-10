@@ -1,5 +1,10 @@
 language: bash
-cache: ccache
+cache:
+  - $HOME/.ccache
+addons:
+  apt:
+    packages:
+     - ccache
 services:
     - docker
 before_install:
