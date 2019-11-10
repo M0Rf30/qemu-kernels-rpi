@@ -10,7 +10,7 @@ services:
 before_install:
     - docker pull m0rf30/arch-arm-crosscompile
 script:
-    - docker run -u root -v $HOME/.ccache:/ccache -v $TRAVIS_BUILD_DIR:/workspace m0rf30/arch-arm-crosscompile:latest bash -c "cd /workspace; CCACHE_DIR=/ccache ./build_all.sh"
+    - docker run -u root -v $HOME/.ccache:/ccache -v $TRAVIS_BUILD_DIR:/workspace m0rf30/arch-arm-crosscompile:latest bash -c "cd /workspace/rpi; CCACHE_DIR=/ccache ./script"
 before_deploy:
     - git config --local user.name "M0Rf30"
     - git config --local user.email "morf3089@gmail.com"
@@ -24,7 +24,5 @@ deploy:
         secure: Hr7iz9USVclts40w3GTfeBCLIHwCOt/QlXPRrBTkHUSJppo1NUg4HGeeRjbzLgdG1ikj6R7czfXS870/uuEK/uMY4geoxyjKb8U3evN6a1Fx3RilFztxGySu4wzR3Oa2o0lm2BvUuAvBtw59wJiUto8j+kMA4IKh8/7mFtEs/3b9nkB0iJVrWHgiG6uHHNtE8v1kO0cWhT/9gBEAYZa3E6BXu7fDkgKPtagu6Vo9ehvOvYuFuKTh7080Tm+tXAGu39EoqHD1RXEoK8PpN7+9ly66v0jp/U/MD1vuQH4XmgJHmj+XEod7P+pNgb7k6F7OI1d+LvOKpGux3PICx9JbRRBpxgAkPUqySQGfM88voCnFjayNIwTuITq5BcuxKTr9Hq3gWqJi3hiMsrWNq/t72mPtEWJ1yhj3CNf9ldmrne3TU+EYc/g1A5iuvtjt6ytDPXGgy8N0sS/nk11A/gDIZSMvxLTXu7709ubVXycZvr+7I4ABXR/Bc1/+g83djx8MQKHPxjYKlC9Lb3/LSCSQzuGLLi1vaHjhamcmznSuGxqZmruAE1upt/qKGPI8IrWID409mDvwptPiTo384orMK9PHURaiINa9scFEvAEzKWNGY+25C28S5NFhcj83FTc5FE3UYScWUHojXCQ/ayQ2p4So/DMlPANGPbif26cuR8c=
     file:
         - 'rpi/build/*'
-        - 'rpi2/build/*'
-        - 'rpi3/build/*'
     on:
         repo: M0Rf30/qemu-kernels-rpi-arch-arm
