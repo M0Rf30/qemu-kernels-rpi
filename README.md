@@ -10,7 +10,7 @@ Remember to install these packages:
 * ccache (to speedup frequent builds)
 
 # How to use
-Take a look at different branches for detailed instructions
+Take a look at different ```m0rf30/qemu-kernel-*``` repos for detailed instructions
 
 # Pull requests
 Any suggestion are welcome.
